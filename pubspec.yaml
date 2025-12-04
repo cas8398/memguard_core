@@ -16,3 +16,8 @@ flutter:
       android:
         package: com.flagodna.memguard
         pluginClass: MemGuardPlugin
+dev_dependencies:
+  flutter:
+    sdk: flutter
+  flutter_test:
+    sdk: flutter
