@@ -1,0 +1,12 @@
+name: memguard_example
+description: "Example app for MemGuard."
+version: 2.1.3
+homepage: https://github.com/cas8398/flutter_memguard
+
+environment:
+  sdk: ">=3.6.0 <4.0.0"
+  flutter: ">=3.3.0"
+
+dependencies:
+  flutter:
+    sdk: flutter

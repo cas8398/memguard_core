@@ -1,0 +1,18 @@
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+
+android {
+    namespace = "com.flagodna.memguard"
+
+    compileSdk 36
+
+    defaultConfig {
+        minSdk 21
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['src/main/jniLibs']
+        }
+    }
+}
