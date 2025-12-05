@@ -1,6 +1,8 @@
 # Changelog for memguard_core
 
-All notable changes to this project will be documented in this file.
+## [2.1.4]
+
+- Added Linux platform support (x86_64, glibc 2.31+).
 
 ## [2.1.3]
 
