@@ -555,16 +555,14 @@ class MemGuardPlugin : FlutterPlugin, MethodCallHandler {
         val key = getSecureKey()
         val cipher = Cipher.getInstance(encryptionAlgorithm)
 
-        // Generate cryptographically secure random 12-byte IV (GCM standard)
-        val iv = ByteArray(12)
-        SecureRandom().apply { nextBytes(iv) }
-
-        // Explicitly pass the random IV — never rely on cipher.iv
-        cipher.init(Cipher.ENCRYPT_MODE, key, GCMParameterSpec(gcmTagLengthBits, iv))
-
+        // Let Android KeyStore generate the IV
+        cipher.init(Cipher.ENCRYPT_MODE, key)
+        
+        // IMPORTANT: Get the IV that was actually used
+        val iv = cipher.iv
         val encryptedBytes = cipher.doFinal(value.toByteArray(StandardCharsets.UTF_8))
 
-        // Format: [12-byte IV] || [ciphertext || 16-byte auth tag]
+        // Format: [IV] || [ciphertext with auth tag]
         val combined = ByteArray(iv.size + encryptedBytes.size)
         System.arraycopy(iv, 0, combined, 0, iv.size)
         System.arraycopy(encryptedBytes, 0, combined, iv.size, encryptedBytes.size)
@@ -583,6 +581,7 @@ class MemGuardPlugin : FlutterPlugin, MethodCallHandler {
             throw IllegalArgumentException("Encrypted data too short (missing IV or ciphertext)")
         }
 
+        // Extract IV from the beginning
         val iv = combined.copyOfRange(0, 12)
         val encryptedData = combined.copyOfRange(12, combined.size)
 
@@ -590,14 +589,13 @@ class MemGuardPlugin : FlutterPlugin, MethodCallHandler {
         val cipher = Cipher.getInstance(encryptionAlgorithm)
 
         try {
+            // Pass the extracted IV for decryption
             cipher.init(Cipher.DECRYPT_MODE, key, GCMParameterSpec(gcmTagLengthBits, iv))
             val decryptedBytes = cipher.doFinal(encryptedData)
             return String(decryptedBytes, StandardCharsets.UTF_8)
         } catch (e: javax.crypto.AEADBadTagException) {
-            // This is CRITICAL: authentication tag failed → data was tampered with or corrupted
             throw SecurityException("Encrypted data integrity check failed — possible tampering or corruption", e)
         } catch (e: Exception) {
-            // Re-throw other cipher errors with context
             throw SecurityException("Decryption failed (invalid key, corrupted data, or device state changed)", e)
         }
     }

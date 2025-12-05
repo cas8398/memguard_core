@@ -2,6 +2,7 @@
 rust/target/
 rust/build/
 rust/android/
+rush/linux/
 rust/rush/
 rush/Cargo.lock            
 
@@ -11,6 +12,8 @@ rush/Cargo.lock
 build/
 .dart_tool/
 example/.dart_tool/
+memguard_core.iml
+.metadata
 
 # Logs
 *.out

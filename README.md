@@ -4,7 +4,7 @@
 ![iOS](https://img.shields.io/badge/iOS-Not%20Tested-lightgrey)
 ![Windows](https://img.shields.io/badge/Windows-Not%20Tested-lightgrey)
 ![macOS](https://img.shields.io/badge/macOS-Not%20Tested-lightgrey)
-![Linux](https://img.shields.io/badge/Linux-Not%20Tested-lightgrey)
+![Linux](https://img.shields.io/badge/Linux-Supported-brightgreen)
 
 **Zero-leak secure storage for Flutter with hardware-backed encryption and memory-safe Rust FFI.**
 
@@ -393,12 +393,6 @@ See `INTEGRATION.md` for complete examples.
 
 ---
 
-## License
-
-[Add your license here]
-
----
-
 ## Contributing
 
 Contributions to the native core are welcome! Please ensure:
@@ -418,6 +412,32 @@ For questions about:
 - **Using MemGuard**: See the main MemGuard Plugin repository
 - **Native integration**: Open an issue in this repository
 - **Security concerns**: Email [your security contact]
+
+---
+
+## Linux Compatibility Information
+
+✅ Supported Systems
+Will Work On:
+
+- Ubuntu 20.04+ (GLIBC 2.31+)
+- Ubuntu 22.04+ ✅
+- Debian 11+ (Bullseye) ✅
+- Debian 12+ (Bookworm) ✅
+- Fedora 34+ ✅
+- Arch Linux (rolling) ✅
+- Manjaro ✅
+- Pop!\_OS 20.04+ ✅
+- Linux Mint 20+ ✅
+- Elementary OS 6+ ✅
+
+❌ Will NOT Work On:
+
+- Old distributions: Ubuntu 18.04 or older, Debian 10 or older
+- Enterprise Linux: RHEL 7, CentOS 7 (GLIBC 2.17)
+- ARM architectures: Raspberry Pi, Apple Silicon
+- 32-bit systems: x86/i386
+- Alpine Linux: Uses musl instead of glibc
 
 ---
 

@@ -1,14 +1,17 @@
 name: memguard_core
 description: "Memory security core: encrypted storage and Rust FFI helpers."
-version: 2.1.3
+version: 2.1.4
 homepage: https://github.com/cas8398/memguard_core
 repository: https://github.com/cas8398/memguard_core
 issue_tracker: https://github.com/cas8398/memguard_core/issues
-documentation: https://github.com/cas8398/memguard_core#readme
 
 environment:
   sdk: ">=3.6.0 <4.0.0"
-  flutter: ">=3.3.0" # Add flutter constraint
+  flutter: ">=3.3.0"
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
 
 flutter:
   plugin:
@@ -16,8 +19,7 @@ flutter:
       android:
         package: com.flagodna.memguard
         pluginClass: MemGuardPlugin
-dev_dependencies:
-  flutter:
-    sdk: flutter
-  flutter_test:
-    sdk: flutter
+
+  # Add this: tell Flutter to bundle the prebuilt .so on Linux
+  assets:
+    - lib/linux/libmemguard_ffi.so
